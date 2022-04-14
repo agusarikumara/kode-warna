@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Kode Warna</title>
+    <style>
+        #box {
+            float: left;
+            font-family: monospace;
+            text-align: center;
+            margin-right: 10px;
+            font-size: 24pt;
+        }
+        #box div {
+            width: 150px;
+            height: 150px;
+            background-color: #000000;
+        }
+        fieldset div {
+            padding: 10px 0px;
+        }
+        fieldset span {
+            width: 80px;
+            display: inline-block;
+        }
+        fieldset input {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>    
+    <h1>Kode Warna</h1>
+    <div id="box">
+        <div></div>
+        <span>#000000</span>
+    </div>
+    <fieldset>
+        <legend>Warna Dasar</legend>
+        <div id="red">
+            <span>R (Merah)</span>
+            <input type="range" value="0" min="0" max="255">
+            <span>0</span>
+        </div>        
+        <div id="green">
+            <span>G (Hijau)</span>
+            <input type="range" value="0" min="0" max="255">
+            <span>0</span>
+        </div>        
+        <div id="blue">
+            <span>B (Biru)</span>
+            <input type="range" value="0" min="0" max="255">
+            <span>0</span>
+        </div>
+    </fieldset>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        $(function(){
+            $('input').on('input', function(){
+                $(this).next().html(this.value); // this : berlaku pada DOM yg memanggil event
+                var cCode = '#' + getCode('red') + getCode('green') + getCode('blue');
+                $('#box span').html(cCode);
+                $('#box div').css('background-color', cCode);
+            });
+        });
+        function getCode(colorId) {
+            var xCode = parseInt($('#' + colorId + ' input').val()).toString(16); // mengubah colodId menjadi angka (integer)
+                if (xCode.length<2) xCode = '0' + xCode;
+                return xCode;
+        }
+    </script>
+</body>
+</html>
